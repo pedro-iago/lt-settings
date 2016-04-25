@@ -1,0 +1,104 @@
+;; User behaviors
+;; -----------------------------
+;; Modify this file to add and subtract behaviors. Behaviors allow customization of
+;; almost any aspect of LightTable e.g. show line numbers or current theme.
+;; A behavior has the following format:
+;;
+;;   [:TAG :BEHAVIOR OPTIONAL_ARGUMENTS]
+;;
+;; * A tag indicates in what context the behavior applies. Common tags are :app and :editor which respectively
+;;   indicate the behavior can be used anywhere and the behavior only applies to editors.
+;;
+;; * Behavior is the specific LightTable behavior to configure. To search available behaviors,
+;;   start typing a search term after :TAG. Once you've found the desired behavior, press TAB to have autocomplete
+;;   fill in the behavior name.
+;;
+;; * Optional arguments are arguments to pass to a behavior. If a behavior has arguments they should
+;;   pop up in an info box after the behavior has been autocompleted.
+;;
+;; * For more on configuring behaviors see https://github.com/LightTable/LightTable/blob/master/doc/behavior-and-keymap-configuration.md.
+
+[
+ ;; The app tag is kind of like global scope. You assign behaviors that affect
+ ;; all of Light Table to it.
+ [:app :lt.objs.style/set-skin "dark"]
+ [:app :lt.objs.plugins/load-js "user_compiled.js"]
+ [:app :-lt.objs.menu/create-menu]
+;;  [:app :lt.objs.opener/save-all-on-focus-lost]
+ [:app :lt.objs.style/font-settings "Ubuntu Mono" "13" "1"]
+ [:app :lt.objs.menu/create-menu]
+ [:app :lt.plugins.gitlight/config {:git-binary "/usr/bin/git"
+                                    :max-history 64}]
+ [:app :-lt.objs.intro/show-intro]
+ [:app :lt.objs.app/run-post-init
+  [:tabset.new :tabset.next :add-browser-tab
+   :tabset.prev :window.fullscreen]]
+
+ [:editor.file-backed :-lt.objs.editor.file/last-char-newline]
+ [:editor :lt.objs.editor/line-numbers]
+ [:editor :-lt.objs.editor/highlight-current-line]
+ [:editor.clj.common :-lt.plugins.auto-complete/auto-show-on-input]
+ [:editor :-lt.objs.editor/hide-line-numbers]
+ [:editor :lt.objs.editor/autoclose-brackets]
+;;  [:app :lt.objs.editor/load-addon ["edit/closebrackets.js"]] ;todo: close evry
+;;  [:editor :lt.objs.editor/set-codemirror-flags {:autoCloseBrackets true}]
+ [:editor.clj.instarepl :lt.plugins.clojure.instarepl/start-content
+  ";Type shit and shit will happen!
+(require '[alembic.still :as $ :refer (distill lein)])
+(distill '[[expectations \"2.0.9\"]
+           [net.mikera/core.matrix \"0.51.0\"]
+           [com.rpl/specter \"0.9.2\"]])
+
+(require '[expectations :as e]
+         '[com.rpl.specter :as s]
+         '[clojure.core.matrix :as m])
+(use 'clojure.core.matrix.operators)"]
+
+ ;; Tabs
+ [:editor :lt.plugins.reminisce/trigger-cache-tabs]
+ [:app :lt.plugins.reminisce/restore-tabs]
+ [:app :-lt.objs.editor.pool/stop-close-dirty]
+
+ ;; Console
+ [:bottombar :lt.plugins.reminisce/cache-console-open]
+ [:bottombar :lt.plugins.reminisce/cache-console-close]
+ [:app :lt.plugins.reminisce/restore-console]
+
+ ;; Reopening closed tabs
+ [:editor :lt.plugins.reminisce/editor-state]
+ [:editor :lt.plugins.reminisce/cache-state]
+ [:editor :lt.plugins.reminisce/queue]
+
+ ;; Workspace tree
+ [:sidebar :lt.plugins.reminisce/cache-workspace]
+ [:app :lt.plugins.reminisce/restore-workspace]
+
+ ;; The editor tag is applied to all editors
+ [:editor :lt.objs.editor/no-wrap]
+ [:editor :lt.objs.style/set-theme "default"]
+;;  [:editor :lt.objs.style/set-theme "tomorrow-night"]
+ [:editor :lt.objs.style]
+
+ ;; Here we can add behaviors to just clojure editors
+ [:editor.clojure :lt.plugins.clojure/print-length 1000]
+ [:editor.clj.common :lt.objs.editor/wrap]
+ [:editor.clj.common :lt.plugins.lt-scrubber/activate-scrubber]
+
+ ;; Behaviors specific to a user-defined object
+ [:user.hello :lt.plugins.user/on-close-destroy]
+
+ ;; To subtract a behavior, prefix the name with '-' e.g.
+ ;;  [:app :-lt.objs.intro/show-intro]
+
+ ;; Common behaviors to consider
+ ;; ============================
+ ;; Show line numbers
+ ;; [:editor :lt.objs.editor/line-numbers]
+ ;; Customize font
+ ;; [:app :lt.objs.style/font-settings "Courier New" "11"]
+ ;; Auto-close characters e.g. '{[("'
+;;  [:editor :lt.objs.editor/autoclose-brackets]
+ ;; Tab settings: Use real tabs, tab size in spaces, spaces per indent
+;; [:editor :lt.objs.editor/tab-settings false 2 2]
+]
+
