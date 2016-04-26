@@ -75,6 +75,8 @@
  [:tabs "shift-alt" :tabset.next]
  [:find-bar "shift-tab" :focus-last-editor :find.clear :find.hide]
  [:editor "shift-tab" :unindent-selection]
+ [:browser "ins" :browser.url-bar.focus]
+ [:app "ins" :focus-last-editor]
 
  [:find-bar "pagedown" :find.next]
  [:find-bar "pageup" :find.prev]
