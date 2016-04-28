@@ -25,6 +25,7 @@
   :find.clear :find.hide :close-sidebar :focus-last-editor]
  [:editor "end" :editor.disconnect-clients]
 
+ [:app "ctrl-t" :new-file :save-as]
  [:app "ctrl-shift-t" :reminisce.reopen-tab]
  [:app "ctrl-shift-r" :instarepl]
  [:app "ctrl-shift-b" :add-browser-tab :browser.url-bar.focus]
@@ -37,7 +38,7 @@
  [:editor "alt-s" :paredit.select.parent]
  [:editor "alt-x" :editor.delete-line]
  [:editor "alt-e" :eval-editor-form]
- [:editor "alt-d" :editor.doc.toggle]
+ [:editor "alt-d" :editor.watch.unwatch :editor.doc.toggle] ;this also deletes figs
  [:editor "alt-c" :toggle-comment-selection]
  [:editor "alt-r" :rolex.watch.rough-time]
  [:app "alt-f" :claire-show]

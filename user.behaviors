@@ -34,9 +34,9 @@
   [:tabset.new :tabset.next :add-browser-tab
    :tabset.prev :window.fullscreen]]
 
- [:editor.file-backed :-lt.objs.editor.file/last-char-newline]
+ [:watchable :-lt.plugins.watches/eval-on-watch-or-unwatch]
  [:editor :lt.objs.editor/line-numbers]
- [:editor :-lt.objs.editor/highlight-current-line]
+ [:editor :lt.objs.editor/highlight-current-line]
  [:editor.clj.common :-lt.plugins.auto-complete/auto-show-on-input]
  [:editor :-lt.objs.editor/hide-line-numbers]
  [:editor :lt.objs.editor/autoclose-brackets]
@@ -76,7 +76,7 @@
  ;; The editor tag is applied to all editors
  [:editor :lt.objs.editor/no-wrap]
  [:editor :lt.objs.style/set-theme "default"]
-;;  [:editor :lt.objs.style/set-theme "tomorrow-night"]
+;;  [:editor :lt.objs.style/set-theme "monokai"]
  [:editor :lt.objs.style]
 
  ;; Here we can add behaviors to just clojure editors
