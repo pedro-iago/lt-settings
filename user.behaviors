@@ -21,6 +21,7 @@
 [
  ;; The app tag is kind of like global scope. You assign behaviors that affect
  ;; all of Light Table to it.
+
  [:app :lt.objs.style/set-skin "dark"]
  [:app :lt.objs.plugins/load-js "user_compiled.js"]
  [:app :-lt.objs.menu/create-menu]
@@ -29,11 +30,10 @@
  [:app :lt.objs.menu/create-menu]
  [:app :lt.plugins.gitlight/config {:git-binary "/usr/bin/git"
                                     :max-history 64}]
- [:app :-lt.objs.intro/show-intro]
+ [:app :-lt.objs.intro/show-intro ]
  [:app :lt.objs.app/run-post-init
-  [:tabset.new :tabset.next :add-browser-tab
-   :tabset.prev :window.fullscreen]]
-
+  [:terminal.new :tabs.move-new-tabset :window.fullscreen]]
+ [:editor.inline-result :lt.objs.eval/inline-exceptions] ;don't like this cus I cant close on key
  [:watchable :-lt.plugins.watches/eval-on-watch-or-unwatch]
  [:editor :lt.objs.editor/line-numbers]
  [:editor :lt.objs.editor/highlight-current-line]
@@ -44,15 +44,19 @@
 ;;  [:editor :lt.objs.editor/set-codemirror-flags {:autoCloseBrackets true}]
  [:editor.clj.instarepl :lt.plugins.clojure.instarepl/start-content
   ";Type shit and shit will happen!
-(require '[alembic.still :as $ :refer (distill lein)])
-(distill '[[expectations \"2.0.9\"]
-           [net.mikera/core.matrix \"0.51.0\"]
-           [com.rpl/specter \"0.9.2\"]])
+(require '[alembic.still :refer (distill lein)])
+(distill '[[net.mikera/core.matrix \"0.51.0\"]
+           [com.rpl/specter \"0.10.0\"]
+           [incanter/incanter \"1.5.7\"]
+           [org.clojure/data.codec \"0.1.0\"]
+           [midje \"1.8.3\"]]
+         :verbose false)
 
-(require '[expectations :as e]
-         '[com.rpl.specter :as s]
+(require '[com.rpl.specter :as s]
          '[clojure.core.matrix :as m])
-(use 'clojure.core.matrix.operators)"]
+(use 'clojure.core.matrix.operators
+     'midje.sweet
+     '(incanter core charts datasets))"]
 
  ;; Tabs
  [:editor :lt.plugins.reminisce/trigger-cache-tabs]
@@ -63,6 +67,7 @@
  [:bottombar :lt.plugins.reminisce/cache-console-open]
  [:bottombar :lt.plugins.reminisce/cache-console-close]
  [:app :lt.plugins.reminisce/restore-console]
+ [:console :lt.objs.console/set-console-limit 200]
 
  ;; Reopening closed tabs
  [:editor :lt.plugins.reminisce/editor-state]

@@ -21,31 +21,39 @@
  [:app "pageup" :workspace.show] ;;todo: focus and nav
  [:app "pagedown" :toggle-console] ;;todo: focus
  [:app "home" :show-commandbar-transient]
- [:app "esc" :workspace.show-recents :workspace.show :console.hide
+ [:app "esc" :claire-clear :workspace.show-recents :workspace.show :console.hide
   :find.clear :find.hide :close-sidebar :focus-last-editor]
  [:editor "end" :editor.disconnect-clients]
-
  [:app "ctrl-t" :new-file :save-as]
  [:app "ctrl-shift-t" :reminisce.reopen-tab]
  [:app "ctrl-shift-r" :instarepl]
  [:app "ctrl-shift-b" :add-browser-tab :browser.url-bar.focus]
  [:app "ctrl-shift-c" :lt.plugins.color-picker/color-picker-open]
+ [:app "ctrl-shift-+" :console-tab :console.show]
+ [:app "ctrl-shift--" :clear-console]
+ [:app "-pmeta--" :window.zoom-out]
 
  [:editor "alt-q" :editor.watch.remove-all :clear-inline-results]
  [:editor "alt-a" :auto-complete]
  [:editor "alt-z" :lt.plugins.modific.commands/revert-change]
  [:editor "alt-w" :editor.watch.watch-selection]
- [:editor "alt-s" :paredit.select.parent]
+ [:editor "alt-s" :parembrace.select]
  [:editor "alt-x" :editor.delete-line]
  [:editor "alt-e" :eval-editor-form]
  [:editor "alt-d" :editor.watch.unwatch :editor.doc.toggle] ;this also deletes figs
  [:editor "alt-c" :toggle-comment-selection]
  [:editor "alt-r" :rolex.watch.rough-time]
- [:app "alt-f" :claire-show]
- [:editor "alt-v" :gitlight-status-toggle]
- [:editor "alt-t" :lt.plugins.lt-expectations/run-expectations-curr-file]
- [:editor "alt-g" :editor.jump-to-definition-at-cursor]
- [:app "alt-b" :tabs.close :editor.unjump]
+ [:app "alt-f" :console.hide :claire-show]
+ [:app "alt-v" :gitlight-status-toggle]
+ [:editor "alt-t" :reminisce.reopen-tab] ;:editor.sublime.selectNextOccurrence alt-g?
+ [:editor "alt-g" :parembrace.select :lt.plugins.googlesearch/google-word-under-cursor]
+ [:app "alt-b" :lt.plugins.alt-tab/close-current-tab-and-go-to-previously-used]
+
+;;  [:editor "alt-enter" :editor.disconnect-clients :show-add-connection
+;;    (:eval.custom
+;;       "(do (require '[alembic.still :refer [lein]])
+;;          (lein cooper))")]
+ [:editor "alt-enter" :terminal.new]
 
  [:editor "alt-." :lt.plugins.lt-scrubber/increment-value]
  [:editor "alt-," :lt.plugins.lt-scrubber/decrement-value]
@@ -58,6 +66,7 @@
  [:editor "alt-right" :parembrace.move-next] ;;todo: reach EOL
  [:editor "alt-left" :parembrace.move-prev]
 
+ [:browser "del" :refresh-connected-browser]
  [:tabs "alt-1" (:tabs.goto 0)]
  [:tabs "alt-2" (:tabs.goto 1)]
  [:tabs "alt-3" (:tabs.goto 2)]
@@ -73,7 +82,7 @@
  [:app "shift-esc" :lt.plugins.alt-tab/close-current-tab-and-go-to-previously-used]
 
  [:tabs "shift-ctrl" :tabs.move-next-tabset]
- [:tabs "shift-alt" :tabset.next]
+ [:tabs "shift-alt" :tabset.next :tabs.prev :tabs.next] ;this solves terminal bug
  [:find-bar "shift-tab" :focus-last-editor :find.clear :find.hide]
  [:editor "shift-tab" :unindent-selection]
  [:browser "ins" :browser.url-bar.focus]
